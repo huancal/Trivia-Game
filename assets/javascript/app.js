@@ -1,9 +1,11 @@
+var correct_answers = 0;
+var incorrect_answers = 0;
+var unansweredd_questions = 0;
+
 $(document).ready(function () {
 
     $('#startbutton').on('click', function () {
-        TriviaGame.start()
-
-
+        startgame()
     })
 
     // Question set
@@ -33,38 +35,30 @@ $(document).ready(function () {
         }
     ]
 
-    var TriviaGame = {
-        correct_answers: 0,
-        incorrect_answers: 0,
-        unansweredd_questions: 0,
-
-
-
-
-        start: function () {
-            var number = 60;
-            setInterval(function () {
-                number--;
-                if (number >= 0) {
-                    span = document.getElementById("show-number");
-                    span.innerHTML = " <strong>Time Remaining</strong> " + number + ' Seconds ';
-                }
-                if (number === 0) {
-                    alert('sorry, out of time');
-                    clearInterval(number);
-                }
-            }, 1000);
-
-            for (var i = 0; i < triviaQuestions.length; i++) {
-                $('#Question1').append("<h4> " + triviaQuestions[i].question + "</h4>")
-
-                for (var j = 0; j < triviaQuestions[i].answers.length; j++) {
-                    $('#Question1').append("<div><input type='radio' name='option" +
-                        "'value='" + triviaQuestions[i].answers[j] + "''> " + triviaQuestions[i].answers[j] + "</div>")
-                }
+    function startgame() {
+        var number = 60;
+        setInterval(function () {
+            number--;
+            if (number >= 0) {
+                span = document.getElementById("show-number");
+                span.innerHTML = " <strong>Time Remaining</strong> " + number + ' Seconds ';
             }
-        },
+            if (number === 0) {
+                alert('sorry, out of time');
+                clearInterval(number);
+            }
+        }, 1000);
+
+        for (var i = 0; i < triviaQuestions.length; i++) {
+            $('#Question1').append("<h4> " + triviaQuestions[i].question + "</h4>")
+
+            for (var j = 0; j < triviaQuestions[i].answers.length; j++) {
+                $('#Question1').append("<div><input type='radio' name='option" +
+                    "'value='" + triviaQuestions[i].answers[j] + "''> " + triviaQuestions[i].answers[j] + "</div>")
+            }
+        }
     }
+
 
     $('#endbutton').on('click', function () {
         userchoice()
@@ -74,21 +68,17 @@ $(document).ready(function () {
                 var radioValue = $("input[name='option" + i + "']:checked").val();
                 if (radioValue === triviaQuestions[i].correctAnswer) {
                     console.log('correct answer');
-                    TriviaGame.correct_answers++;
+                    correct_answers++;
+
 
                 } else if (radioValue === undefined) {
                     console.log("no guess");
-                    TriviaGame.unansweredd_questions++;
+                    unansweredd_questions++;
                 } else {
                     console.log('wrong answer');
-                    TriviaGame.incorrect_answers++;
+                    incorrect_answers++;
                 }
             }
         }
-
     })
-
-
-
-
 });

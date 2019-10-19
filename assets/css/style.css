@@ -20,15 +20,9 @@ body {
     background-color: #ffeaa7;
 }
 
-* {
-    margin: auto;
-}
+
 
 h1 {
     color: #2d3436;
     font-size: 30pt;
-}
-
-h2 {
-    color: #d63031;
 }
