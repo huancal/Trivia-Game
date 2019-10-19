@@ -8,30 +8,46 @@ $(document).ready(function () {
 
     // Question set
     var triviaQuestions = [{
-        question: "What was the first full length CGI movie?",
-        answers: ["A Bug's Life", "Monsters Inc.", "Toy Story", "The Lion King"],
-        correctAnswer: "Toy Story",
-    }, {
-        question: "Which of these is NOT a name of one of the Spice Girls?",
-        answers: ["Sporty Spice", "Fred Spice", "Scary Spice", "Posh Spice"],
-        correctAnswer: "Fred Spice",
-    }]
+            question: "Who won the World Cup in 2010?",
+            answers: ["Spain", "Brazil", "United States", "Netherlands"],
+            correctAnswer: "Spain",
+        }, {
+            question: "Which baseball team won the first World Series?",
+            answers: ["Pittsburgh Pirates", "New York Giants", "Boston Americans", "Detroit Tigers"],
+            correctAnswer: "Boston Americans",
+        },
+        {
+            question: "In 2014 who was the highest paid athlete at 78.1 million?",
+            answers: ["Lebron James", "Tiger Woods", "Kobe Bryant", "Roger Federer"],
+            correctAnswer: "Tiger Woods",
+        },
+        {
+            question: "Which team won the 1st Super Bowl that was played on January 15, 1967?",
+            answers: ["Green Bay Packers", "Oakland Raiders", "New York Jets", "Kansas City Chiefs"],
+            correctAnswer: "Green Bay Packers",
+        },
+        {
+            question: "How many panels make up a soccer ball?",
+            answers: ["18", "21", "32", "40"],
+            correctAnswer: "32",
+        }
+    ]
 
     var TriviaGame = {
         correct_answers: 0,
         incorrect_answers: 0,
         unansweredd_questions: 0,
-        timer: 5,
+
 
 
 
         start: function () {
-            var number = 30;
+            var number = 60;
             setInterval(function () {
                 number--;
                 if (number >= 0) {
                     span = document.getElementById("show-number");
-                    span.innerHTML = number + ' Seconds ';
+                    span.innerHTML = " <strong>Time Remaining</strong> " + number + ' Seconds ';
                 }
                 if (number === 0) {
                     alert('sorry, out of time');
@@ -40,7 +56,7 @@ $(document).ready(function () {
             }, 1000);
 
             for (var i = 0; i < triviaQuestions.length; i++) {
-                $('#Question1').append("<h1> " + triviaQuestions[i].question + "</h1>")
+                $('#Question1').append("<h4> " + triviaQuestions[i].question + "</h4>")
 
                 for (var j = 0; j < triviaQuestions[i].answers.length; j++) {
                     $('#Question1').append("<div><input type='radio' name='option" +
