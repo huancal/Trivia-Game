@@ -65,12 +65,10 @@ $(document).ready(function () {
 
         function userchoice() {
             for (var i = 0; i < triviaQuestions.length; i++) {
-                var radioValue = $("input[name='option" + i + "']:checked").val();
+                var radioValue = $("input[name='option']:checked").val();
                 if (radioValue === triviaQuestions[i].correctAnswer) {
                     console.log('correct answer');
                     correct_answers++;
-
-
                 } else if (radioValue === undefined) {
                     console.log("no guess");
                     unansweredd_questions++;
@@ -79,6 +77,10 @@ $(document).ready(function () {
                     incorrect_answers++;
                 }
             }
+
+            $('#results').html("<h4>" + correct_answers + "</h4>")
+            $('#results').html("<h4>" + incorrect_answers + "</h4>")
+            $('#results').html("<h4>" + unansweredd_questions + "</h4>")
         }
     })
 });
