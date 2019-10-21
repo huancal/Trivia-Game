@@ -3,10 +3,18 @@ var incorrect_answers = 0;
 var unansweredd_questions = 0;
 
 $(document).ready(function () {
-
     $('#startbutton').on('click', function () {
         startgame()
-    })
+    });
+
+    //On Submit display ScoreCard 
+    $('#endbutton').on('click', function () {
+        //Colleect All answers 
+        userchoice();
+        //Display Scorecard
+        scoreCard();
+
+    });
 
     // Question set
     var triviaQuestions = [{
@@ -33,9 +41,21 @@ $(document).ready(function () {
             answers: ["18", "21", "32", "40"],
             correctAnswer: "32",
         }
-    ]
+    ];
 
+    //Start Game 
     function startgame() {
+        //Hide Q& A section 
+        $('#Question1').empty();
+        $('#Question1').show();
+        //Hide Q& A section 
+        $('#results').empty();
+        $('#results').hide();
+        //Reset Values -Global Variables 
+        correct_answers = 0;
+        incorrect_answers = 0;
+        unansweredd_questions = 0;
+        //Timer Variable 
         var number = 60;
         setInterval(function () {
             number--;
@@ -46,41 +66,61 @@ $(document).ready(function () {
             if (number === 0) {
                 alert('sorry, out of time');
                 clearInterval(number);
+                //Count all answers 
+                userchoice();
+                //Display Scorecard 
+                scoreCard();
             }
         }, 1000);
-
+        //Populate All Q&A 
         for (var i = 0; i < triviaQuestions.length; i++) {
-            $('#Question1').append("<h4> " + triviaQuestions[i].question + "</h4>")
 
+            $('#Question1').append("<h4 id='Q-" + i + "' > " + triviaQuestions[i].question + "</h4>")
+            //Answers for Q 
             for (var j = 0; j < triviaQuestions[i].answers.length; j++) {
-                $('#Question1').append("<div><input type='radio' name='option" +
-                    "'value='" + triviaQuestions[i].answers[j] + "''> " + triviaQuestions[i].answers[j] + "</div>")
+                $('#Question1').append("<div><input type='radio' name='option-" + j +
+                    "' value='" + triviaQuestions[i].answers[j] + "''> " + triviaQuestions[i].answers[j] + " - 'option-" + j + "' </div>");
             }
         }
+        //Add End Game button 
+        $('#Question1').append("<button id='endbutton' class='btn btn-success btn-lg'>Submit Answers</button>");
     }
 
 
-    $('#endbutton').on('click', function () {
-        userchoice()
 
-        function userchoice() {
-            for (var i = 0; i < triviaQuestions.length; i++) {
-                var radioValue = $("input[name='option']:checked").val();
-                if (radioValue === triviaQuestions[i].correctAnswer) {
-                    console.log('correct answer');
-                    correct_answers++;
-                } else if (radioValue === undefined) {
-                    console.log("no guess");
-                    unansweredd_questions++;
-                } else {
-                    console.log('wrong answer');
-                    incorrect_answers++;
-                }
+    //Score Card 
+    function userchoice() {
+
+        for (var i = 0; i < triviaQuestions.length; i++) {
+
+            console.log("triviaQuestions[i].correctAnswer", triviaQuestions[i].correctAnswer);
+
+            var optionVal = $("input[name='option-" + i + "']:checked").val();
+            console.log(optionVal);
+
+            if (optionVal === triviaQuestions[i].correctAnswer) {
+                console.log('correct answer');
+                correct_answers++;
+            } else if (optionVal === undefined) {
+                console.log("no guess");
+                unansweredd_questions++;
+            } else {
+                console.log('wrong answer');
+                incorrect_answers++;
             }
-
-            $('#results').html("<h4>" + correct_answers + "</h4>")
-            $('#results').html("<h4>" + incorrect_answers + "</h4>")
-            $('#results').html("<h4>" + unansweredd_questions + "</h4>")
         }
-    })
+
+    }
+
+    function scoreCard() {
+
+        $('#results').show();
+
+        $('#results').html("<h2 class='text-center'>All Done!</h2>");
+        $('#results').append("<h4 class='text-center text-success'> Correct Answers - " + correct_answers + "</h4>")
+        $('#results').append("<h4 class='text-center text-danger'> InCorrect Answers - " + incorrect_answers + "</h4>")
+        $('#results').append("<h4 class='text-center text-primary'> Unanswered Answers - " + unansweredd_questions + "</h4>")
+        //Hide Q& A section 
+        $('#Question1').hide();
+    }
 });
