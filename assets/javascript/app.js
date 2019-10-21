@@ -79,7 +79,7 @@ $(document).ready(function () {
             //Answers for Q 
             for (var j = 0; j < triviaQuestions[i].answers.length; j++) {
                 $('#Question1').append("<div><input type='radio' name='option-" + j +
-                    "' value='" + triviaQuestions[i].answers[j] + "''> " + triviaQuestions[i].answers[j] + " - 'option-" + j + "' </div>");
+                    "' value='" + triviaQuestions[i].answers[j] + "''> " + triviaQuestions[i].answers[j] + " </div>");
             }
         }
         //Add End Game button 
